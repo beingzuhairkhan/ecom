@@ -16,12 +16,15 @@ import { toast } from "sonner";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 
+export async function generateStaticParams() {
+  return FEATURED_PRODUCTS.map(product => ({
+    id: product.id.toString(),
+  }));
+}
 export default function ProductPage() {
-  const { id } = useParams();
-  const productId = Number(id);
+  const params = useParams();
+  const product = FEATURED_PRODUCTS.find(p => p.id.toString() === params.id);
   
-  // Find the product
-  const product = FEATURED_PRODUCTS.find(p => p.id === productId);
   
   // Get related products
   const relatedProducts = product 
